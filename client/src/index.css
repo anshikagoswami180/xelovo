@@ -1,0 +1,207 @@
+:root {
+  --bg-main: #030B1C;
+  --bg-secondary: #06142B;
+  --bg-card: #091B36;
+  --border-dark: rgba(45, 125, 255, 0.28);
+  --border-subtle: rgba(45, 125, 255, 0.18);
+  
+  --primary-blue: #1976F3;
+  --electric-blue: #1688FF;
+  --cyan: #19D7E8;
+  --light-cyan: #58F0FF;
+
+  --text-main: #F2F5F9;
+  --text-secondary: #B5C0D0;
+  --text-muted: #8494AB;
+
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Outfit', 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.5;
+  background-image: 
+    radial-gradient(circle at 15% 20%, rgba(25, 215, 232, 0.04) 0%, transparent 45%),
+    radial-gradient(circle at 85% 30%, rgba(22, 136, 255, 0.05) 0%, transparent 50%),
+    linear-gradient(to bottom, rgba(3, 11, 28, 0.95), rgba(3, 11, 28, 1));
+  background-attachment: fixed;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-main);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(25, 215, 232, 0.25);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--cyan);
+}
+
+/* Background Cyber Grid Overlay */
+.cyber-grid-bg {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(to right, rgba(45, 125, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(45, 125, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Card Styling */
+.xelavo-card,
+.xelovo-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-dark);
+  border-radius: 12px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.xelavo-card:hover,
+.xelovo-card:hover {
+  border-color: rgba(25, 215, 232, 0.5);
+  box-shadow: 0 0 25px rgba(22, 136, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Gradients */
+.gradient-text-blue {
+  background: linear-gradient(135deg, #1558C0 0%, #1688FF 50%, #19D7E8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.btn-blue-gradient {
+  background: linear-gradient(135deg, #1558C0 0%, #1688FF 60%, #19D7E8 100%);
+  color: #FFFFFF;
+  font-weight: 600;
+  font-family: var(--font-sans);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 15px rgba(22, 136, 255, 0.35);
+  text-decoration: none;
+}
+
+.btn-blue-gradient:hover {
+  opacity: 0.95;
+  box-shadow: 0 0 25px rgba(25, 215, 232, 0.5);
+  transform: translateY(-1px);
+}
+
+.btn-outline-electric {
+  background: rgba(6, 20, 43, 0.6);
+  color: var(--text-main);
+  border: 1px solid var(--electric-blue);
+  border-radius: 8px;
+  font-weight: 600;
+  font-family: var(--font-sans);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.btn-outline-electric:hover {
+  background: rgba(22, 136, 255, 0.15);
+  border-color: var(--cyan);
+  box-shadow: 0 0 15px rgba(22, 136, 255, 0.3);
+}
+
+/* HUD Animation Keyframes */
+@keyframes hudRotateClockwise {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes hudRotateCounter {
+  0% { transform: rotate(360deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes hudPulse {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 0.95; transform: scale(1.02); }
+}
+
+.animate-hud-cw {
+  animation: hudRotateClockwise 25s linear infinite;
+  transform-origin: center;
+}
+
+.animate-hud-ccw {
+  animation: hudRotateCounter 35s linear infinite;
+  transform-origin: center;
+}
+
+.animate-hud-pulse {
+  animation: hudPulse 4s ease-in-out infinite;
+}
+
+/* Dedicated Print Stylesheet for PDF Generation */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 12mm;
+  }
+
+  body {
+    background-color: #FFFFFF !important;
+    background-image: none !important;
+    color: #1E293B !important;
+  }
+
+  /* Hide website UI during PDF printing */
+  nav, footer, .no-print, button, .cyber-grid-bg {
+    display: none !important;
+  }
+
+  /* Expand report modal container */
+  #xelavo-printable-report,
+  #xelovo-printable-report {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+  }
+
+  table {
+    page-break-inside: auto;
+  }
+
+  tr {
+    page-break-inside: avoid;
+    page-break-after: auto;
+  }
+}
