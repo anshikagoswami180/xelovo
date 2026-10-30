@@ -218,14 +218,14 @@ export default function ToolsPage() {
       {/* Search & Category Tabs */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
         {/* Search Bar */}
-        <div className="glass-panel" style={{ padding: '0.75rem 1rem', display: 'flex', alignItems: 'center', gap: '0.75rem', backgroundColor: '#0F141C' }}>
+        <div className="glass-panel" style={{ padding: '0.75rem 1rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
           <Search size={20} color="#00F0FF" />
           <input
             type="text"
             placeholder="Search tools by name, keyword, or capability..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            style={{ background: 'transparent', border: 'none', color: '#FFFFFF', fontSize: '0.95rem', width: '100%', outline: 'none' }}
+            style={{ background: 'transparent', border: 'none', color: 'var(--text-main)', fontSize: '0.95rem', width: '100%', outline: 'none' }}
           />
         </div>
 
@@ -266,8 +266,7 @@ export default function ToolsPage() {
               onClick={() => navigate(`/tools/${tool.id}`)}
               style={{
                 padding: '1.5rem',
-                backgroundColor: '#0F141C',
-                border: tool.flagship ? '1px solid rgba(0, 240, 255, 0.3)' : '1px solid rgba(255, 255, 255, 0.07)',
+                border: tool.flagship ? '1px solid rgba(0, 240, 255, 0.3)' : '1px solid var(--border-subtle)',
                 borderRadius: '12px',
                 cursor: 'pointer',
                 display: 'flex',

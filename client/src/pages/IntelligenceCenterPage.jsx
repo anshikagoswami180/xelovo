@@ -26,7 +26,7 @@ export default function IntelligenceCenterPage() {
       {/* Grid Overview */}
       <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '1.5rem' }}>
         {/* Main Timeline Card */}
-        <div className="glass-panel" style={{ padding: '1.5rem', backgroundColor: '#0F141C' }}>
+        <div className="glass-panel" style={{ padding: '1.5rem' }}>
           <h3 style={{ fontSize: '1.1rem', marginBottom: '1rem', color: '#FFFFFF' }}>Cross-Target Security Timeline</h3>
           {overview && overview.recentScans && overview.recentScans.length > 0 ? (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
@@ -46,7 +46,7 @@ export default function IntelligenceCenterPage() {
         </div>
 
         {/* Saved Investigations Card */}
-        <div className="glass-panel" style={{ padding: '1.5rem', backgroundColor: '#0F141C' }}>
+        <div className="glass-panel" style={{ padding: '1.5rem' }}>
           <h3 style={{ fontSize: '1.1rem', marginBottom: '1rem', color: '#FFFFFF' }}>Saved Investigations</h3>
           {overview && overview.investigations && overview.investigations.length > 0 ? (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>

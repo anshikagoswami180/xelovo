@@ -69,15 +69,6 @@ export async function apiFetchIntelligenceOverview() {
   return res.json();
 }
 
-export async function apiAskAi(message, scanContext = null, history = []) {
-  const res = await fetch(`${API_BASE}/scans/ai/ask`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', ...getAuthHeader() },
-    body: JSON.stringify({ message, scanContext, history })
-  });
-  return res.json();
-}
-
 export async function apiSaveReport(title, scope, findings) {
   const res = await fetch(`${API_BASE}/reports`, {
     method: 'POST',

@@ -34,7 +34,6 @@ export default function RegisterPage({ setUser }) {
         width: '100%',
         maxWidth: '440px',
         padding: '2.5rem 2rem',
-        backgroundColor: '#0F141C',
         boxShadow: '0 0 40px rgba(0, 240, 255, 0.1)'
       }}>
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>

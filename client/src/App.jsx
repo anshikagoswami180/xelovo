@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { ThemeProvider } from './context/ThemeContext';
 
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -21,7 +22,6 @@ import IntelligenceCenterPage from './pages/IntelligenceCenterPage';
 import ReportsPage from './pages/ReportsPage';
 import HistoryPage from './pages/HistoryPage';
 import DocumentationPage from './pages/DocumentationPage';
-import XelavoAiPage from './pages/XelavoAiPage';
 import ProfilePage from './pages/ProfilePage';
 import SettingsPage from './pages/SettingsPage';
 import SecurityPage from './pages/SecurityPage';
@@ -36,44 +36,46 @@ export default function App() {
   };
 
   return (
-    <Router>
-      <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: '#030B1C' }}>
-        <Navbar />
+    <ThemeProvider>
+      <Router>
+        <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: 'var(--bg-main)', color: 'var(--text-main)', transition: 'background-color 0.25s ease, color 0.25s ease' }}>
+          <Navbar />
 
-        <main style={{ flex: 1 }}>
-          <Routes>
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/contact" element={<ContactPage />} />
-            
-            {/* Phase 2 Security Tools Routes */}
-            <Route path="/security-tools" element={<SecurityToolsHubPage />} />
-            <Route path="/security-tools/phishing-analyzer" element={<PhishingAnalyzerPage />} />
-            <Route path="/security-tools/scam-analyzer" element={<ScamAnalyzerPage />} />
-            <Route path="/security-tools/image-analyzer" element={<ImageAnalyzerPage />} />
+          <main style={{ flex: 1 }}>
+            <Routes>
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/about" element={<AboutPage />} />
+              <Route path="/contact" element={<ContactPage />} />
+              
+              {/* Phase 2 Security Tools Routes */}
+              <Route path="/security-tools" element={<SecurityToolsHubPage />} />
+              <Route path="/security-tools/phishing-analyzer" element={<PhishingAnalyzerPage />} />
+              <Route path="/security-tools/scam-analyzer" element={<ScamAnalyzerPage />} />
+              <Route path="/security-tools/image-analyzer" element={<ImageAnalyzerPage />} />
 
-            {/* Other Platform Routes */}
-            <Route path="/login" element={<LoginPage setUser={setUser} />} />
-            <Route path="/register" element={<RegisterPage setUser={setUser} />} />
-            <Route path="/dashboard" element={<DashboardPage user={user} onOpenCommand={() => {}} />} />
-            <Route path="/tools" element={<ToolsPage />} />
-            <Route path="/tools/:id" element={<ToolDetailPage onOpenAiContext={() => {}} />} />
-            <Route path="/investigation" element={<IntelligenceCenterPage />} />
-            <Route path="/ai-assistant" element={<XelavoAiPage />} />
-            <Route path="/learn" element={<DocumentationPage />} />
-            <Route path="/reports" element={<ReportsPage />} />
-            <Route path="/history" element={<HistoryPage />} />
-            <Route path="/documentation" element={<DocumentationPage />} />
-            <Route path="/profile" element={<ProfilePage user={user} />} />
-            <Route path="/settings" element={<SettingsPage />} />
-            <Route path="/security" element={<SecurityPage />} />
-            <Route path="/privacy" element={<PrivacyPage />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
-        </main>
+              {/* Other Platform Routes */}
+              <Route path="/login" element={<LoginPage setUser={setUser} />} />
+              <Route path="/register" element={<RegisterPage setUser={setUser} />} />
+              <Route path="/dashboard" element={<DashboardPage user={user} onOpenCommand={() => {}} />} />
+              <Route path="/tools" element={<ToolsPage />} />
+              <Route path="/tools/:id" element={<ToolDetailPage />} />
+              <Route path="/investigation" element={<IntelligenceCenterPage />} />
+              <Route path="/ai-assistant" element={<Navigate to="/security-tools" replace />} />
+              <Route path="/learn" element={<DocumentationPage />} />
+              <Route path="/reports" element={<ReportsPage />} />
+              <Route path="/history" element={<HistoryPage />} />
+              <Route path="/documentation" element={<DocumentationPage />} />
+              <Route path="/profile" element={<ProfilePage user={user} />} />
+              <Route path="/settings" element={<SettingsPage />} />
+              <Route path="/security" element={<SecurityPage />} />
+              <Route path="/privacy" element={<PrivacyPage />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </main>
 
-        <Footer />
-      </div>
-    </Router>
+          <Footer />
+        </div>
+      </Router>
+    </ThemeProvider>
   );
 }

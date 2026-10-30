@@ -27,7 +27,6 @@ export default function LinkDnaVisualizer({ linkDnaData }) {
       {/* Top Reputation & Verdict Header Card */}
       <div className="glass-panel" style={{
         padding: '1.5rem',
-        backgroundColor: '#0F141C',
         border: `1px solid ${reputation.riskLevel === 'Critical' || reputation.riskLevel === 'High' ? 'rgba(239, 68, 68, 0.4)' : 'rgba(0, 240, 255, 0.25)'}`,
         display: 'flex',
         alignItems: 'center',

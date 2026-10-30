@@ -62,8 +62,18 @@ function validateTargetInput(inputTarget) {
   // Remove port if present
   hostname = hostname.split(':')[0].toLowerCase();
 
+  // Dword / Decimal / Hexadecimal obfuscated IP checks
+  if (/^0x[0-9a-f]+$/i.test(hostname) || /^\d{8,11}$/.test(hostname)) {
+    return { valid: false, reason: `Target '${hostname}' uses restricted numeric/hexadecimal IP encoding.` };
+  }
+
+  // Octal IP notation checks (e.g. 0177.0.0.1)
+  if (/^0\d+(\.0\d+)*$/.test(hostname)) {
+    return { valid: false, reason: `Target '${hostname}' uses restricted octal IP notation.` };
+  }
+
   // Check forbidden hostnames
-  const forbiddenHostnames = ['localhost', 'loopback', '0.0.0.0', '127.0.0.1', 'metadata.google.internal'];
+  const forbiddenHostnames = ['localhost', 'loopback', '0.0.0.0', '127.0.0.1', 'metadata.google.internal', 'instance-data'];
   if (forbiddenHostnames.includes(hostname) || hostname.endsWith('.local') || hostname.endsWith('.internal')) {
     return { valid: false, reason: `Target '${hostname}' resolves to restricted local/internal infrastructure.` };
   }

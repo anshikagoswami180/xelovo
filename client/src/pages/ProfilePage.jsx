@@ -11,8 +11,8 @@ export default function ProfilePage({ user }) {
         <p style={{ fontSize: '0.95rem', color: '#9CA3AF' }}>User identity, authentication credentials, and platform role</p>
       </div>
 
-      <div className="glass-panel" style={{ padding: '2rem', backgroundColor: '#0F141C', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', borderBottom: '1px solid rgba(255, 255, 255, 0.08)', paddingBottom: '1.25rem' }}>
+      <div className="glass-panel" style={{ padding: '2rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '1.25rem' }}>
           <div style={{ width: '64px', height: '64px', borderRadius: '50%', backgroundColor: 'rgba(0, 240, 255, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#00F0FF' }}>
             <User size={32} />
           </div>

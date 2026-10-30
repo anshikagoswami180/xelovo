@@ -345,7 +345,7 @@ export default function ReportPreviewModal({ isOpen, onClose, analysis }) {
             color: '#64748B'
           }}>
             <div>
-              Prepared by: <strong>XELOVO Analysis Engine</strong> | AI Interpretation: <strong>XELA AI</strong>
+              Prepared by: <strong>XELOVO Security Intelligence Engine</strong>
             </div>
             <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem' }}>
               Report SHA-256 Seal: <strong>{reportHash.slice(0, 16)}...{reportHash.slice(-16)}</strong>

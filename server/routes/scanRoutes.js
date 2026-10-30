@@ -20,7 +20,6 @@ const { traceRedirects } = require('../services/redirectService');
 const { analyzePrivacy } = require('../services/privacyService');
 const { computeHashes, processEncoding, checkHashReputation } = require('../services/hashService');
 const { inspectMetadata, cleanMetadata } = require('../services/metadataService');
-const { generateAiResponse } = require('../services/aiService');
 
 function generateId() {
   return Date.now().toString(36) + Math.random().toString(36).substring(2, 8);
@@ -48,6 +47,12 @@ router.post('/execute', authenticateToken, upload.single('file'), async (req, re
     }
   }
 
+  // Shadow Surface authorization enforcement
+  if (toolId === 'shadow-surface') {
+    if (!target) return res.status(400).json({ error: 'Target domain is required.' });
+    if (!isAuthConfirmed) return res.status(403).json({ error: 'Explicit authorization confirmation is required for Shadow Surface scan.' });
+  }
+
   try {
     // Run unified real-time analysis engine probe
     const unifiedAnalysis = await runUnifiedAnalysis(toolId, target || (req.file ? req.file.originalname : 'File Assessment'), parsedOptions);
@@ -57,27 +62,35 @@ router.post('/execute', authenticateToken, upload.single('file'), async (req, re
       // TOP 4 FLAGSHIP TOOLS
       case 'exposure-map':
         if (!target) return res.status(400).json({ error: 'Target domain is required.' });
-        const mapData = await buildExposureMap(target, parsedOptions.orgName, parsedOptions.usernames);
-        scanResults = { ...unifiedAnalysis, mapData };
+        scanResults = { ...unifiedAnalysis, mapData: unifiedAnalysis.mapData || (await buildExposureMap(target, parsedOptions.orgName, parsedOptions.usernames)) };
         break;
 
       case 'link-dna':
         if (!target) return res.status(400).json({ error: 'Target URL is required.' });
-        const dnaData = await analyzeLinkDNA(target);
-        scanResults = { ...unifiedAnalysis, dnaData };
+        scanResults = { ...unifiedAnalysis, dnaData: unifiedAnalysis.dnaData || (await analyzeLinkDNA(target)) };
         break;
 
       case 'shadow-surface':
         if (!target) return res.status(400).json({ error: 'Target domain is required.' });
-        if (!isAuthConfirmed) return res.status(403).json({ error: 'Explicit authorization confirmation is required for Shadow Surface scan.' });
-        const shadowData = await analyzeShadowSurface(target, isAuthConfirmed);
-        scanResults = { ...unifiedAnalysis, shadowData };
+        scanResults = { ...unifiedAnalysis, shadowData: unifiedAnalysis.shadowData || (await analyzeShadowSurface(target, isAuthConfirmed)) };
         break;
 
       case 'signal-zero':
         if (!target) return res.status(400).json({ error: 'Target domain is required.' });
-        const signalData = await generateSignalZeroTimeline(target, parsedOptions.targetUrl);
-        scanResults = { ...unifiedAnalysis, signalData };
+        scanResults = { ...unifiedAnalysis, signalData: unifiedAnalysis.signalData || (await generateSignalZeroTimeline(target, parsedOptions.targetUrl)) };
+        break;
+
+      // NETWORK & SECURITY WORKSTATIONS
+      case 'header-inspector':
+      case 'tls-inspector':
+      case 'domain-intelligence':
+      case 'redirect-trace':
+      case 'privacy-scanner':
+      case 'cookie-inspector':
+      case 'digital-footprint':
+      case 'security-header-generator':
+      case 'breach-check':
+        scanResults = unifiedAnalysis;
         break;
 
       // OTHER FUNCTIONAL TOOLS
@@ -104,9 +117,10 @@ router.post('/execute', authenticateToken, upload.single('file'), async (req, re
 
       case 'encoding-utility':
         if (!target) return res.status(400).json({ error: 'Input text is required.' });
+        const encMode = parsedOptions.mode || parsedOptions.encodingMode || 'base64_encode';
         scanResults = {
           ...unifiedAnalysis,
-          encoding: processEncoding(target, parsedOptions.mode || 'base64_encode')
+          encoding: processEncoding(target, encMode)
         };
         break;
 
@@ -146,6 +160,7 @@ router.post('/execute', authenticateToken, upload.single('file'), async (req, re
         break;
 
       default:
+        scanResults = unifiedAnalysis;
         break;
     }
 
@@ -197,23 +212,6 @@ router.get('/:scanId', authenticateToken, (req, res) => {
     ...scan,
     results: JSON.parse(scan.results_json || '{}')
   });
-});
-
-// XELA AI query endpoint
-router.post('/ai/ask', authenticateToken, async (req, res) => {
-  const { message, scanContext, history } = req.body;
-  if (!message) return res.status(400).json({ error: 'Message query is required.' });
-
-  try {
-    const aiReply = await generateAiResponse(message, scanContext, history || []);
-    res.json(aiReply);
-  } catch (err) {
-    console.error('[XELA AI Error]', err);
-    res.json({
-      answer: "I experienced a temporary processing delay. Could you please rephrase or ask your question again?",
-      contextUsed: false
-    });
-  }
 });
 
 module.exports = router;

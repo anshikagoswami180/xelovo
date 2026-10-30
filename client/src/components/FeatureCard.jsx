@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Shield, Search, Bot, Briefcase, UserCheck, ArrowRight } from 'lucide-react';
+import { Shield, Search, FileText, Briefcase, UserCheck, ArrowRight } from 'lucide-react';
 
 export default function FeatureCard({ id, iconType, iconColor, title, description, linkUrl }) {
   const renderIcon = () => {
@@ -14,8 +14,8 @@ export default function FeatureCard({ id, iconType, iconColor, title, descriptio
         );
       case 'investigation':
         return <Search size={30} color="#1688FF" />;
-      case 'ai-assistant':
-        return <Bot size={30} color="#8B5CF6" />;
+      case 'reports':
+        return <FileText size={30} color="#1688FF" />;
       case 'security-toolkit':
         return <Briefcase size={30} color="#10B981" />;
       default:
@@ -37,8 +37,8 @@ export default function FeatureCard({ id, iconType, iconColor, title, descriptio
         width: '52px',
         height: '52px',
         borderRadius: '10px',
-        backgroundColor: 'rgba(6, 20, 43, 0.8)',
-        border: '1px solid rgba(45, 125, 255, 0.25)',
+        backgroundColor: 'var(--bg-secondary)',
+        border: '1px solid var(--border-dark)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -49,10 +49,10 @@ export default function FeatureCard({ id, iconType, iconColor, title, descriptio
 
       {/* Content */}
       <div>
-        <h3 style={{ fontSize: '1.1rem', color: '#F2F5F9', marginBottom: '0.4rem', fontWeight: 700 }}>
+        <h3 style={{ fontSize: '1.1rem', color: 'var(--text-contrast)', marginBottom: '0.4rem', fontWeight: 700 }}>
           {title}
         </h3>
-        <p style={{ fontSize: '0.84rem', color: '#B5C0D0', lineHeight: 1.45 }}>
+        <p style={{ fontSize: '0.84rem', color: 'var(--text-secondary)', lineHeight: 1.45 }}>
           {description}
         </p>
       </div>

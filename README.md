@@ -2,7 +2,7 @@
 
 > **See Threats. Know More. Stay Protected.**
 
-XELOVO is a production-grade, evidence-driven cybersecurity threat intelligence, digital forensic analysis, and security awareness platform. Built with a zero-trust governance model, XELOVO provides defensive attack surface visibility, authorized web security assessment, digital footprint intelligence, and context-grounded AI assistance without relying on fabricated metrics or arbitrary scorecards.
+XELOVO is a production-grade, evidence-driven cybersecurity threat intelligence, digital forensic analysis, and security awareness platform. Built with a zero-trust governance model, XELOVO provides defensive attack surface visibility, authorized web security assessment, digital footprint intelligence, and verifiable threat analysis without relying on fabricated metrics or arbitrary scorecards.
 
 ---
 
@@ -42,7 +42,7 @@ XELOVO features 20 purpose-built security workstations and analytical engines:
 13. **Base64 / URL String Encoder & Decoder**: Safe string encoding and decoding utility for forensic analysis.
 14. **JWT Security Decoder**: Decodes JSON Web Tokens to inspect header algorithms, payload claims, and expiration timestamps.
 15. **X-CORE COMMAND (Ctrl+K)**: Instant keyboard-driven command palette for rapid platform navigation and tool launching.
-16. **XELA AI Assistant**: Universal conversational AI assistant and telemetry interpretation engine (`XelaEngine`).
+16. **Security Remediation & Hardening Guidance**: Generates hardened server configurations (Nginx, Apache, Express, Next.js) and verifiable mitigation recommendations.
 17. **Multi-Format Security Reporting**: Export print-ready A4 PDF, JSON, Markdown, and HTML reports with SHA-256 integrity digests.
 18. **Scan History & Audit Logging**: Scoped historical audit logs tracking executed scans, timestamps, and findings.
 
@@ -58,11 +58,11 @@ XELOVO features 20 purpose-built security workstations and analytical engines:
 
 ### Backend Architecture
 - **Server Runtime**: Node.js v18+ with Express 5
-- **Database**: Zero-config SQLite via `better-sqlite3`
+- **Database Engine**: Transactional SQLite (`better-sqlite3`) in WAL mode with foreign-key integrity, versioned SQL migrations, and audit logging
 - **Authentication**: JSON Web Tokens (JWT) with `bcryptjs` password hashing (10 salt rounds)
-- **Security Middleware**: Multi-layer Server-Side Request Forgery (SSRF) Guard (`ssrfGuard.js`), CORS policy, Security HTTP Headers
+- **Security Middleware**: Multi-layer Server-Side Request Forgery (SSRF) Guard (`ssrfGuard.js`), Sliding-Window Rate Limiter (`rateLimiter.js`), CORS policy, Security HTTP Headers
 - **File Upload Handling**: Multer in-memory storage (15MB file size limit)
-- **AI Orchestration**: Modular `XelaEngine` pipeline with `RequestRouter`, `ContextManager`, `ToolRegistry`, and `AiProvider`
+- **Verification & Testing**: Native Node.js Test Harness with 26 automated regression & security tests
 
 ---
 
@@ -71,24 +71,25 @@ XELOVO features 20 purpose-built security workstations and analytical engines:
 ```
                    ┌──────────────────────────────────────────┐
                    │     React + Vite Client (Frontend)       │
-                   │     - 15 Pages & 20 Workstations         │
+                   │     - 14 Pages & 20 Workstations         │
                    │     - Interactive SVG Visualizers        │
                    │     - X-CORE COMMAND Modal (Ctrl+K)      │
-                   │     - XELA AI Drawer & Page Interface    │
+                   │     - Verifiable Security Reports        │
                    └────────────────────┬─────────────────────┘
                                         │ REST API / JSON
                                         ▼
                    ┌──────────────────────────────────────────┐
                    │     Express.js Server (Backend)          │
-                   │     - JWT Auth & Audit Logging           │
+                   │     - JWT Auth & Enterprise Audit Logs   │
                    │     - SSRF Guard Protection              │
-                   │     - XelaEngine AI Pipeline             │
+                   │     - Unified Analysis Engine            │
                    │     - 12 Real Network Probe Services     │
                    └────────────────────┬─────────────────────┘
-                                        │ SQLite Database
+                                        │ SQLite (WAL Mode)
                                         ▼
                    ┌──────────────────────────────────────────┐
                    │    SQLite Database (better-sqlite3)      │
+                   │    - Versioned Migrations & Indexes      │
                    │    - Scans, Users, Reports, Audit Logs   │
                    └──────────────────────────────────────────┘
 ```
@@ -99,6 +100,15 @@ XELOVO features 20 purpose-built security workstations and analytical engines:
 
 ```
 xelovo/
+├── docs/                         # Platform Verification & Audit Documentation
+│   ├── FEATURE_INVENTORY.md      # Complete 27-Feature Inventory & Traceability Matrix
+│   ├── SECURITY_AUDIT.md         # OWASP Top 10 Audit, SSRF & DoS Defenses
+│   ├── DEMONSTRATION_GUIDE.md    # Reproducible Demonstration & Walkthrough Guide
+│   ├── TEST_REPORT.md            # Automated Test Suite Execution Matrix (26/26 Passing)
+│   ├── DEPLOYMENT_GUIDE.md       # Nginx Reverse Proxy & PM2 Production Deployment
+│   └── KNOWN_LIMITATIONS.md      # System Scope, Ethical Boundaries & Unconfigured APIs
+├── test/                         # Automated Verification Test Suite
+│   └── runAllTests.js            # Node.js Unit, Regression & Security Test Runner
 ├── README.md                     # Platform Documentation
 ├── CONTRIBUTING.md               # Contribution & Collaboration Guidelines
 ├── SECURITY.md                   # Responsible Vulnerability Disclosure Policy
@@ -113,22 +123,22 @@ xelovo/
 │       └── feature_request.md    # Feature Request Template
 ├── server/                       # Backend Application
 │   ├── index.js                  # Main Express Application Entry
-│   ├── db.js                     # SQLite Database Initialization & Schema
+│   ├── db.js                     # SQLite Database Initialization & Connection Health
+│   ├── migrate.js                # Version-Controlled SQL Migration Runner
+│   ├── migrations/               # Transactional SQL Schema & Index Migrations
 │   ├── middleware/
 │   │   ├── auth.js               # JWT Authentication Middleware
+│   │   ├── rateLimiter.js        # Sliding-Window Rate Limiting Middleware
 │   │   └── ssrfGuard.js          # SSRF Security Guard
 │   ├── routes/
 │   │   ├── authRoutes.js         # Authentication Endpoints
-│   │   ├── scanRoutes.js         # Tool Execution Endpoints & XELA AI Route
+│   │   ├── scanRoutes.js         # Tool Execution & Security Analysis Endpoints
 │   │   ├── intelligenceRoutes.js # Threat Intelligence Endpoints
 │   │   ├── reportRoutes.js       # Security Report Endpoints
 │   │   └── userRoutes.js         # User Profile & Audit Endpoints
 │   └── services/
-│       ├── xelaEngine.js         # XELA AI Pipeline Orchestrator
-│       ├── toolRegistry.js       # Tool Registry & Workstation Handlers
-│       ├── requestRouter.js      # AI Intent Classification & Router
-│       ├── contextManager.js     # Conversation Context & Memory Manager
-│       ├── aiProvider.js         # AI Provider Adapter (Gemini / OpenAI)
+│       ├── analysisEngine.js     # Unified Security Analysis Engine
+│       ├── auditService.js       # Centralized Database Audit Logging
 │       ├── headerService.js      # HTTP Header Inspector Service
 │       ├── sslService.js         # TLS/SSL Certificate Inspector
 │       ├── dnsService.js         # Node.js DNS Resolver Service
@@ -139,6 +149,7 @@ xelovo/
 │       ├── signalZeroService.js  # Early Warning Signal Engine
 │       ├── privacyService.js     # Privacy & Tracker Scanner
 │       ├── hashService.js        # Cryptographic Hash Service
+│       ├── securityHeaderGeneratorService.js # Nginx/Apache/Express/Next.js Hardener
 │       └── metadataService.js    # EXIF Metadata Extractor
 └── client/                       # Frontend Application
     ├── package.json              # Frontend Dependencies
@@ -194,7 +205,6 @@ JWT_SECRET=your_jwt_secret_key_here
 VIRUSTOTAL_API_KEY=your_virustotal_api_key_here
 SHODAN_API_KEY=your_shodan_api_key_here
 ABUSEIPDB_API_KEY=your_abuseipdb_api_key_here
-GEMINI_API_KEY=your_gemini_api_key_here
 NODE_ENV=development
 ```
 
@@ -203,22 +213,40 @@ NODE_ENV=development
 
 ---
 
-## 8. Development & Build Commands
+## 8. Development, Testing & Build Commands
 
 | Command | Action |
 | :--- | :--- |
+| `npm test` | Executes the 26-test automated verification suite (SSRF guard, cryptanalysis, security headers, analysis engine, database & migrations, rate limiting) |
 | `npm run dev` | Runs backend server and frontend client concurrently in development mode |
 | `npm run server` | Starts Express backend server on `http://localhost:5000` |
 | `npm run client` | Starts Vite frontend dev server on `http://localhost:3000` |
 | `npm run build` | Compiles frontend production bundle into `client/dist` |
 | `npm start` | Runs Express server in production mode |
 
-### Running Production Build
+### Running Production Build & Automated Tests
 ```bash
+# Execute automated test suite
+npm test
+
+# Build production assets and launch
 npm run build
 npm start
 ```
 The Express server will automatically serve the compiled frontend bundle from `client/dist` on port `5000`.
+
+---
+
+## 9. Comprehensive Documentation & Audit Guides
+
+For thorough technical, architectural, and security evaluation, consult the dedicated guides in [`docs/`](./docs):
+
+- **[Feature Inventory & Architecture Matrix (docs/FEATURE_INVENTORY.md)](./docs/FEATURE_INVENTORY.md)**: Exhaustive catalog of all 27 platform features (F-01 through F-27) with implementation details and test requirements.
+- **[Security Audit & OWASP Top 10 Review (docs/SECURITY_AUDIT.md)](./docs/SECURITY_AUDIT.md)**: In-depth vulnerability audit covering SSRF boundaries, rate limiting, JWT token hygiene, and local memory security.
+- **[Demonstration & Evaluation Walkthrough (docs/DEMONSTRATION_GUIDE.md)](./docs/DEMONSTRATION_GUIDE.md)**: Step-by-step reproducible guide for academic evaluators and reviewers with safe test fixtures.
+- **[Automated Test Report (docs/TEST_REPORT.md)](./docs/TEST_REPORT.md)**: Full 26-test automated test run breakdown with 100% pass verification.
+- **[Production Deployment Operations Guide (docs/DEPLOYMENT_GUIDE.md)](./docs/DEPLOYMENT_GUIDE.md)**: Nginx reverse-proxy template, PM2 process management, and SQLite WAL backup routines.
+- **[System Scope & Known Limitations (docs/KNOWN_LIMITATIONS.md)](./docs/KNOWN_LIMITATIONS.md)**: Architectural boundaries, Zero Fabrication Guarantee, and unconfigured API transparency.
 
 ---
 
@@ -259,7 +287,7 @@ XELOVO was created and engineered as an academic cybersecurity platform:
 ### Planned Roadmap
 1. **Automated Monitoring Cron Jobs**: Scheduled background re-scanning of target domains for security regression alerts.
 2. **Enterprise SIEM & Webhook Feeds**: Export Signal Zero threat timelines to Slack, Microsoft Teams, or custom webhooks.
-3. **Offline Air-Gapped AI Sidecar**: Support for local Ollama/LocalAI LLM integration for restricted SOC environments.
+3. **Automated Remediation Scripting**: Direct generation of Ansible and Terraform playbooks for automated hardening.
 
 ---
 

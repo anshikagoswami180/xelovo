@@ -64,31 +64,31 @@ export default function ReportsPage() {
       </div>
 
       {showCreateModal && (
-        <div className="xelavo-card" style={{ padding: '1.75rem', backgroundColor: '#091B36' }}>
-          <h3 style={{ fontSize: '1.15rem', color: '#F2F5F9', marginBottom: '1rem', fontWeight: 700 }}>
+        <div className="xelavo-card" style={{ padding: '1.75rem' }}>
+          <h3 style={{ fontSize: '1.15rem', color: 'var(--text-contrast)', marginBottom: '1rem', fontWeight: 700 }}>
             Create Executive Security Report
           </h3>
           <form onSubmit={handleCreateReport} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
             <div>
-              <label style={{ fontSize: '0.82rem', color: '#B5C0D0', display: 'block', marginBottom: '0.35rem', fontWeight: 600 }}>Report Title</label>
+              <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '0.35rem', fontWeight: 600 }}>Report Title</label>
               <input
                 type="text"
                 required
                 placeholder="e.g. Q3 Infrastructure Attack Surface Audit"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                style={{ width: '100%', padding: '0.75rem', backgroundColor: 'rgba(3, 11, 28, 0.7)', border: '1px solid rgba(45, 125, 255, 0.28)', borderRadius: '8px', color: '#F2F5F9', outline: 'none' }}
+                style={{ width: '100%', padding: '0.75rem', backgroundColor: 'var(--bg-input)', border: '1px solid var(--border-dark)', borderRadius: '8px', color: 'var(--text-main)', outline: 'none' }}
               />
             </div>
             <div>
-              <label style={{ fontSize: '0.82rem', color: '#B5C0D0', display: 'block', marginBottom: '0.35rem', fontWeight: 600 }}>Target Scope</label>
+              <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '0.35rem', fontWeight: 600 }}>Target Scope</label>
               <input
                 type="text"
                 required
                 placeholder="e.g. example.com & Subdomains"
                 value={scope}
                 onChange={(e) => setScope(e.target.value)}
-                style={{ width: '100%', padding: '0.75rem', backgroundColor: 'rgba(3, 11, 28, 0.7)', border: '1px solid rgba(45, 125, 255, 0.28)', borderRadius: '8px', color: '#F2F5F9', outline: 'none' }}
+                style={{ width: '100%', padding: '0.75rem', backgroundColor: 'var(--bg-input)', border: '1px solid var(--border-dark)', borderRadius: '8px', color: 'var(--text-main)', outline: 'none' }}
               />
             </div>
             <div style={{ display: 'flex', gap: '0.75rem' }}>

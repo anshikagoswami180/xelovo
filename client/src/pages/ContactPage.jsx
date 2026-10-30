@@ -69,7 +69,7 @@ export default function ContactPage() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
           
           {/* OFFICIAL EMAIL CARD */}
-          <div className="xelavo-card" style={{ padding: '1.75rem', backgroundColor: '#091B36', borderLeft: '4px solid #19D7E8' }}>
+          <div className="xelavo-card" style={{ padding: '1.75rem', borderLeft: '4px solid #19D7E8' }}>
             <span style={{ fontSize: '0.78rem', color: '#8494AB', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase' }}>
               OFFICIAL PLATFORM EMAIL
             </span>

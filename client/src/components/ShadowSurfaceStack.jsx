@@ -25,7 +25,6 @@ export default function ShadowSurfaceStack({ shadowData }) {
       {/* Overview Card */}
       <div className="glass-panel" style={{
         padding: '1.5rem',
-        backgroundColor: '#0F141C',
         border: '1px solid rgba(0, 240, 255, 0.25)',
         display: 'flex',
         alignItems: 'center',

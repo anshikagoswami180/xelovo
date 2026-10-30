@@ -10,7 +10,7 @@ export default function DocumentationPage() {
         <p style={{ fontSize: '0.95rem', color: '#9CA3AF' }}>Technical guide, methodology, API integration, and Phase 3 roadmap</p>
       </div>
 
-      <div className="glass-panel" style={{ padding: '2rem', backgroundColor: '#0F141C', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+      <div className="glass-panel" style={{ padding: '2rem', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
         <section>
           <h2 style={{ fontSize: '1.3rem', color: '#00F0FF', marginBottom: '0.5rem' }}>1. Platform Overview</h2>
           <p style={{ fontSize: '0.9rem', color: '#D1D5DB', lineHeight: 1.6 }}>

@@ -18,20 +18,20 @@ export default function SettingsPage() {
         <p style={{ fontSize: '0.95rem', color: '#9CA3AF' }}>Configure API provider keys and notification preferences</p>
       </div>
 
-      <div className="glass-panel" style={{ padding: '2rem', backgroundColor: '#0F141C' }}>
+      <div className="glass-panel" style={{ padding: '2rem' }}>
         <form onSubmit={handleSave} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
           <div>
-            <h3 style={{ fontSize: '1.1rem', marginBottom: '0.5rem', color: '#FFFFFF' }}>API Integrations Architecture</h3>
-            <p style={{ fontSize: '0.82rem', color: '#9CA3AF', marginBottom: '1rem' }}>
+            <h3 style={{ fontSize: '1.1rem', marginBottom: '0.5rem', color: 'var(--text-contrast)' }}>API Integrations Architecture</h3>
+            <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', marginBottom: '1rem' }}>
               Configure optional third-party intelligence provider secrets. When left blank, XELOVO falls back to native empirical scanners with transparent configuration status disclaimers.
             </p>
-            <label style={{ fontSize: '0.8rem', color: '#D1D5DB', display: 'block', marginBottom: '0.35rem' }}>VirusTotal API Key (Optional)</label>
+            <label style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '0.35rem' }}>VirusTotal API Key (Optional)</label>
             <input
               type="password"
               placeholder="Enter VirusTotal API key..."
               value={vtApiKey}
               onChange={(e) => setVtApiKey(e.target.value)}
-              style={{ width: '100%', padding: '0.75rem', backgroundColor: 'rgba(255, 255, 255, 0.04)', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '8px', color: '#FFF', fontFamily: 'var(--font-mono)' }}
+              style={{ width: '100%', padding: '0.75rem', backgroundColor: 'var(--bg-input)', border: '1px solid var(--border-dark)', borderRadius: '8px', color: 'var(--text-main)', fontFamily: 'var(--font-mono)' }}
             />
           </div>
 

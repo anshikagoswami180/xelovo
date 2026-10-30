@@ -24,7 +24,8 @@ export default function ScamAnalyzerPage() {
   };
 
   const loadSyntheticTestMessage = () => {
-    const syntheticText = `FINAL WARNING — YOUR ACCOUNT WILL BE SUSPENDED TODAY.
+    const syntheticText = `[DEMONSTRATION DATA — SYNTHETIC HIGH-RISK TEST SAMPLE]
+FINAL WARNING — YOUR ACCOUNT WILL BE SUSPENDED TODAY.
 
 Your account will be permanently suspended within 30 minutes unless you complete urgent security verification.
 

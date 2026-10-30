@@ -128,4 +128,7 @@ async function analyzeDomainDNS(domainInput) {
   return result;
 }
 
-module.exports = { analyzeDomainDNS };
+module.exports = {
+  analyzeDomainDNS,
+  resolveDomainDNS: analyzeDomainDNS
+};

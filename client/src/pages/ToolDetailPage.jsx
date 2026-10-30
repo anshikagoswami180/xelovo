@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useSearchParams } from 'react-router-dom';
-import { Play, ShieldAlert, Bot, CheckCircle, FileText, Upload, Copy, Check, Lock, Code, ShieldCheck, Mail, User, Key, Globe, Eye, Zap } from 'lucide-react';
+import { useParams, useSearchParams, Link } from 'react-router-dom';
+import { Play, ShieldAlert, CheckCircle, FileText, Upload, Copy, Check, Lock, Code, ShieldCheck, Mail, User, Key, Globe, Eye, Zap } from 'lucide-react';
 import { apiExecuteScan } from '../utils/api';
 import HonestResponseCard from '../components/HonestResponseCard';
 
@@ -9,7 +9,7 @@ import LinkDnaVisualizer from '../components/LinkDnaVisualizer';
 import ShadowSurfaceStack from '../components/ShadowSurfaceStack';
 import SignalZeroTimeline from '../components/SignalZeroTimeline';
 
-export default function ToolDetailPage({ onOpenAiContext }) {
+export default function ToolDetailPage() {
   const { id } = useParams();
   const [searchParams] = useSearchParams();
   const initialTarget = searchParams.get('target') || '';
@@ -30,6 +30,26 @@ export default function ToolDetailPage({ onOpenAiContext }) {
       handleRunScan();
     }
   }, [id, initialTarget]);
+
+  const loadDemoTarget = () => {
+    if (id === 'password-analyzer') {
+      setTarget('P@ssw0rd!Secure#2026');
+    } else if (id === 'encoding-utility') {
+      setTarget('XELOVO Defensive Security Platform 2026');
+      setEncodingMode('base64_encode');
+    } else if (id === 'file-hash') {
+      setTarget('e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855');
+    } else if (['link-dna', 'redirect-trace', 'header-inspector', 'privacy-scanner', 'cookie-inspector'].includes(id)) {
+      setTarget('https://example.com');
+      setAuthorizationConfirmed(true);
+    } else if (id === 'security-header-generator') {
+      setTarget('example.com');
+      setPlatformEnv('nginx');
+    } else {
+      setTarget('example.com');
+      setAuthorizationConfirmed(true);
+    }
+  };
 
   // Handle local processing for password-analyzer and encoding-utility when applicable
   const handleRunScan = async (e) => {
@@ -140,7 +160,7 @@ export default function ToolDetailPage({ onOpenAiContext }) {
   return (
     <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '3rem 2rem', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
       {/* Workstation Header */}
-      <div className="xelavo-card" style={{ padding: '1.75rem', backgroundColor: '#091B36' }}>
+      <div className="xelavo-card" style={{ padding: '1.75rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
           <div>
             <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#19D7E8', backgroundColor: 'rgba(25, 215, 232, 0.15)', padding: '0.2rem 0.6rem', borderRadius: '6px' }}>
@@ -155,19 +175,33 @@ export default function ToolDetailPage({ onOpenAiContext }) {
           </div>
 
           {scanResult && (
-            <button 
-              onClick={() => onOpenAiContext({ toolId: id, target, analysisId: scanResult.analysisId, results: scanResult })}
+            <Link 
+              to="/reports"
               className="btn-outline-electric"
-              style={{ padding: '0.65rem 1rem', fontSize: '0.85rem' }}
+              style={{ padding: '0.65rem 1rem', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.4rem', textDecoration: 'none' }}
             >
-              <Bot size={16} /> Ask XELA AI About Findings
-            </button>
+              <FileText size={16} /> Export Security Report
+            </Link>
           )}
         </div>
       </div>
 
       {/* TOOL-SPECIFIC INPUT INTERFACE */}
       <div className="xelavo-card" style={{ padding: '2rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '0.75rem' }}>
+          <h3 style={{ fontSize: '1.1rem', color: '#F2F5F9', margin: 0, fontWeight: 700 }}>
+            Workstation Input Telemetry
+          </h3>
+          <button
+            type="button"
+            onClick={loadDemoTarget}
+            className="btn-outline-electric"
+            style={{ padding: '0.35rem 0.85rem', fontSize: '0.78rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}
+          >
+            <Zap size={14} color="#19D7E8" /> Load Safe Demo Target
+          </button>
+        </div>
+
         <form onSubmit={handleRunScan} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
           
           {/* TOOL 1: PASSWORD ANALYZER (Local Password Input) */}
@@ -212,11 +246,11 @@ export default function ToolDetailPage({ onOpenAiContext }) {
                   onChange={(e) => setEncodingMode(e.target.value)}
                   style={{
                     width: '100%',
-                    backgroundColor: '#06142B',
-                    border: '1px solid rgba(45, 125, 255, 0.28)',
+                    backgroundColor: 'var(--bg-input)',
+                    border: '1px solid var(--border-dark)',
                     borderRadius: '8px',
                     padding: '0.75rem 1rem',
-                    color: '#F2F5F9',
+                    color: 'var(--text-main)',
                     fontSize: '0.9rem',
                     outline: 'none'
                   }}
@@ -291,31 +325,56 @@ export default function ToolDetailPage({ onOpenAiContext }) {
             </div>
           )}
 
-          {/* TOOL 4: SECURITY HEADER GENERATOR (Platform Selector) */}
+          {/* TOOL 4: SECURITY HEADER GENERATOR (Platform Selector & Target Domain) */}
           {id === 'security-header-generator' && (
-            <div>
-              <label style={{ fontSize: '0.85rem', color: '#B5C0D0', display: 'block', marginBottom: '0.4rem', fontWeight: 600 }}>
-                Target Server Architecture / Framework
-              </label>
-              <select
-                value={platformEnv}
-                onChange={(e) => setPlatformEnv(e.target.value)}
-                style={{
-                  width: '100%',
-                  backgroundColor: '#06142B',
-                  border: '1px solid rgba(45, 125, 255, 0.28)',
-                  borderRadius: '8px',
-                  padding: '0.75rem 1rem',
-                  color: '#F2F5F9',
-                  fontSize: '0.9rem',
-                  outline: 'none'
-                }}
-              >
-                <option value="nginx">Nginx Web Server</option>
-                <option value="apache">Apache HTTP Server</option>
-                <option value="express">Express.js (Node.js Helmet)</option>
-                <option value="nextjs">Next.js Framework (next.config.js)</option>
-              </select>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              <div>
+                <label style={{ fontSize: '0.85rem', color: '#B5C0D0', display: 'block', marginBottom: '0.4rem', fontWeight: 600 }}>
+                  Target Server Architecture / Framework
+                </label>
+                <select
+                  value={platformEnv}
+                  onChange={(e) => setPlatformEnv(e.target.value)}
+                  style={{
+                    width: '100%',
+                    backgroundColor: 'var(--bg-input)',
+                    border: '1px solid var(--border-dark)',
+                    borderRadius: '8px',
+                    padding: '0.75rem 1rem',
+                    color: 'var(--text-main)',
+                    fontSize: '0.9rem',
+                    outline: 'none'
+                  }}
+                >
+                  <option value="nginx">Nginx Web Server</option>
+                  <option value="apache">Apache HTTP Server</option>
+                  <option value="express">Express.js (Node.js Helmet)</option>
+                  <option value="nextjs">Next.js Framework (next.config.js)</option>
+                </select>
+              </div>
+
+              <div>
+                <label style={{ fontSize: '0.85rem', color: '#B5C0D0', display: 'block', marginBottom: '0.4rem', fontWeight: 600 }}>
+                  <Globe size={15} style={{ display: 'inline', marginRight: '0.35rem' }} /> Target Domain Name (Optional)
+                </label>
+                <input
+                  type="text"
+                  placeholder="e.g. example.com or app.yourdomain.com"
+                  value={target}
+                  onChange={(e) => setTarget(e.target.value)}
+                  style={{
+                    width: '100%',
+                    backgroundColor: 'rgba(3, 11, 28, 0.7)',
+                    border: '1px solid rgba(45, 125, 255, 0.28)',
+                    borderRadius: '8px',
+                    padding: '0.85rem 1rem',
+                    color: '#FFFFFF',
+                    fontSize: '0.95rem',
+                    outline: 'none',
+                    fontFamily: 'var(--font-mono)'
+                  }}
+                />
+              </div>
             </div>
           )}
 
@@ -435,6 +494,79 @@ export default function ToolDetailPage({ onOpenAiContext }) {
           {id === 'link-dna' && <LinkDnaVisualizer linkDnaData={scanResult.dnaData || scanResult} />}
           {id === 'shadow-surface' && <ShadowSurfaceStack shadowData={scanResult.shadowData || scanResult} />}
           {id === 'signal-zero' && <SignalZeroTimeline signalData={scanResult.signalData || scanResult} />}
+
+          {/* Security Header Generator Output Viewer */}
+          {id === 'security-header-generator' && scanResult.generatorData && (
+            <div className="xelavo-card" style={{ padding: '1.75rem', marginBottom: '2rem', backgroundColor: '#0A172F' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.25rem' }}>
+                <div>
+                  <h3 style={{ fontSize: '1.2rem', color: '#F2F5F9', margin: 0, fontWeight: 700 }}>
+                    Hardened Configuration Snippets
+                  </h3>
+                  <p style={{ fontSize: '0.82rem', color: '#B5C0D0', margin: '0.2rem 0 0 0' }}>
+                    Copy and deploy to your reverse proxy or web application runtime.
+                  </p>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => copyToClipboard(scanResult.generatorData.configs[platformEnv] || '')}
+                  className="btn-outline-electric"
+                  style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', padding: '0.5rem 1rem', fontSize: '0.82rem' }}
+                >
+                  {copied ? <Check size={14} color="#10B981" /> : <Copy size={14} />}
+                  {copied ? 'Copied to Clipboard!' : `Copy ${platformEnv.toUpperCase()} Config`}
+                </button>
+              </div>
+
+              {/* Architecture Tabs */}
+              <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem', borderBottom: '1px solid rgba(45, 125, 255, 0.2)', paddingBottom: '0.75rem' }}>
+                {[
+                  { key: 'nginx', label: 'Nginx' },
+                  { key: 'apache', label: 'Apache (.htaccess)' },
+                  { key: 'express', label: 'Express.js (Helmet)' },
+                  { key: 'nextjs', label: 'Next.js' }
+                ].map(tab => (
+                  <button
+                    key={tab.key}
+                    type="button"
+                    onClick={() => setPlatformEnv(tab.key)}
+                    style={{
+                      padding: '0.45rem 0.9rem',
+                      borderRadius: '6px',
+                      fontSize: '0.82rem',
+                      fontWeight: 600,
+                      cursor: 'pointer',
+                      border: platformEnv === tab.key ? '1px solid #19D7E8' : '1px solid transparent',
+                      backgroundColor: platformEnv === tab.key ? 'rgba(25, 215, 232, 0.15)' : 'transparent',
+                      color: platformEnv === tab.key ? '#19D7E8' : '#8494AB',
+                      transition: 'all 0.2s ease'
+                    }}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Preformatted Code Block */}
+              <pre
+                style={{
+                  backgroundColor: 'var(--bg-secondary)',
+                  border: '1px solid var(--border-dark)',
+                  borderRadius: '8px',
+                  padding: '1.25rem',
+                  color: 'var(--cyan)',
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.85rem',
+                  lineHeight: '1.5',
+                  overflowX: 'auto',
+                  maxHeight: '380px'
+                }}
+              >
+                {scanResult.generatorData.configs[platformEnv] || '// Configuration unavailable for selected runtime.'}
+              </pre>
+            </div>
+          )}
 
           {/* Universal Evidence & Telemetry Renderer */}
           <HonestResponseCard result={scanResult} />

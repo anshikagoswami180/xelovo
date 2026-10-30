@@ -10,7 +10,7 @@ export default function AboutPage() {
     { title: 'Forensic & Cryptographic Utilities', desc: 'Cryptographic hashing (SHA-256, MD5), base64/URL encoding/decoding, JWT decoding, and file checksum tools.', icon: Cpu },
     { title: 'Digital Investigation', desc: 'Analyze suspicious text messages, raw email headers, phishing URL indicators, and image EXIF metadata.', icon: Zap },
     { title: 'Evidence-Based Reporting', desc: 'Export print-ready A4 PDF, JSON, Markdown, and HTML reports with SHA-256 integrity digests and provenance timestamps.', icon: FileText },
-    { title: 'AI Security Guidance (XELA AI)', desc: 'Context-grounded interpretation via XELA AI to contextualize raw evidence without hallucination or opinion.', icon: HelpCircle }
+    { title: 'Defensive Security Remediation', desc: 'Context-grounded defensive recommendations and hardened configuration directives to remediate raw exposure.', icon: ShieldCheck }
   ];
 
   const evidenceLevels = [
@@ -45,7 +45,7 @@ export default function AboutPage() {
           About XELOVO
         </h1>
         <p style={{ fontSize: '1.05rem', color: '#B5C0D0', marginTop: '0.4rem', fontWeight: 500 }}>
-          Empirical Threat Telemetry, Forensic Analysis & AI Security Intelligence Platform
+          Empirical Threat Telemetry, Forensic Analysis & Security Intelligence Platform
         </p>
       </div>
 

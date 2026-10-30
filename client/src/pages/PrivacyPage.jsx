@@ -9,7 +9,7 @@ export default function PrivacyPage() {
         <p style={{ fontSize: '0.95rem', color: '#9CA3AF' }}>User data isolation and telemetry processing transparency</p>
       </div>
 
-      <div className="glass-panel" style={{ padding: '2rem', backgroundColor: '#0F141C', fontSize: '0.9rem', color: '#D1D5DB', lineHeight: 1.6 }}>
+      <div className="glass-panel" style={{ padding: '2rem', fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
         <p>
           XELOVO prioritizes privacy and security data isolation. Passwords entered in the Password Strength Analyzer are calculated 100% locally in the browser and never transmitted over the network. Scan telemetry is isolated per authenticated analyst account.
         </p>

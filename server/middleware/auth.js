@@ -9,7 +9,7 @@ function authenticateToken(req, res, next) {
 
   if (!token) {
     // For demo/convenience if guest mode enabled or token missing, fallback to demo user
-    const demoUser = db.prepare("SELECT * FROM users WHERE email = 'analyst@xelavo.io'").get();
+    const demoUser = db.prepare("SELECT * FROM users WHERE email = 'analyst@xelovo.io' OR email = 'analyst@xelavo.io' ORDER BY id LIMIT 1").get();
     if (demoUser) {
       req.user = demoUser;
       return next();

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, MessageSquare } from 'lucide-react';
+import { ArrowRight, FileText } from 'lucide-react';
 import ShieldVisual from '../components/ShieldVisual';
 import FeatureCard from '../components/FeatureCard';
 
@@ -21,11 +21,11 @@ export default function LandingPage() {
       linkUrl: '/investigation'
     },
     {
-      id: 'ai-assistant',
-      iconType: 'ai-assistant',
-      title: 'AI Security Assistant',
-      description: 'Ask questions about cybersecurity, privacy, scams, suspicious activity and digital safety.',
-      linkUrl: '/ai-assistant'
+      id: 'security-reports',
+      iconType: 'reports',
+      title: 'Verifiable Security Reports',
+      description: 'Generate tamper-evident cryptographic reports with SHA-256 integrity digests and provenance timestamps.',
+      linkUrl: '/reports'
     },
     {
       id: 'security-toolkit',
@@ -60,8 +60,8 @@ export default function LandingPage() {
             display: 'inline-flex',
             alignItems: 'center',
             gap: '0.5rem',
-            backgroundColor: 'rgba(6, 20, 43, 0.7)',
-            border: '1px solid rgba(45, 125, 255, 0.3)',
+            backgroundColor: 'var(--bg-secondary)',
+            border: '1px solid var(--border-dark)',
             borderRadius: '50px',
             padding: '0.4rem 1rem',
             width: 'fit-content'
@@ -70,11 +70,11 @@ export default function LandingPage() {
               width: '8px',
               height: '8px',
               borderRadius: '50%',
-              backgroundColor: '#19D7E8',
-              boxShadow: '0 0 8px #19D7E8'
+              backgroundColor: 'var(--cyan)',
+              boxShadow: '0 0 8px var(--cyan)'
             }} />
-            <span style={{ fontSize: '0.85rem', color: '#B5C0D0', fontWeight: 500 }}>
-              AI-Powered Security Platform
+            <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', fontWeight: 500 }}>
+              Defensive Security Intelligence Platform
             </span>
           </div>
 
@@ -84,7 +84,7 @@ export default function LandingPage() {
             lineHeight: 1.15,
             fontWeight: 800,
             letterSpacing: '-0.02em',
-            color: '#F2F5F9',
+            color: 'var(--text-contrast)',
             fontFamily: 'var(--font-display)'
           }}>
             Security Starts With<br />
@@ -96,7 +96,7 @@ export default function LandingPage() {
           {/* HERO DESCRIPTION */}
           <p style={{
             fontSize: '1.02rem',
-            color: '#B5C0D0',
+            color: 'var(--text-secondary)',
             lineHeight: 1.6,
             maxWidth: '520px'
           }}>
@@ -118,7 +118,7 @@ export default function LandingPage() {
             </Link>
 
             <Link 
-              to="/ai-assistant"
+              to="/reports"
               className="btn-outline-electric"
               style={{
                 height: '48px',
@@ -126,7 +126,7 @@ export default function LandingPage() {
                 fontSize: '0.95rem'
               }}
             >
-              <MessageSquare size={18} color="#1688FF" /> Ask XELA AI
+              <FileText size={18} color="#1688FF" /> View Security Reports
             </Link>
           </div>
         </div>
@@ -158,18 +158,19 @@ export default function LandingPage() {
 
       {/* BEGINNING OF NEXT SECTION AT BOTTOM */}
       <section style={{
-        backgroundColor: '#06142B',
-        borderTop: '1px solid rgba(45, 125, 255, 0.22)',
+        backgroundColor: 'var(--bg-secondary)',
+        borderTop: '1px solid var(--border-subtle)',
         padding: '4rem 2rem 5rem 2rem',
         textAlign: 'center',
         position: 'relative',
-        zIndex: 1
+        zIndex: 1,
+        transition: 'background-color 0.25s ease, border-color 0.25s ease'
       }}>
         <div style={{ maxWidth: '800px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
           {/* Small Uppercase Text */}
           <span style={{
             fontSize: '0.8rem',
-            color: '#19D7E8',
+            color: 'var(--cyan)',
             fontWeight: 700,
             letterSpacing: '0.25em',
             textTransform: 'uppercase'
@@ -181,7 +182,7 @@ export default function LandingPage() {
           <h2 style={{
             fontSize: '2.4rem',
             fontWeight: 800,
-            color: '#F2F5F9',
+            color: 'var(--text-contrast)',
             fontFamily: 'var(--font-display)'
           }}>
             Everything You Need for Digital Safety
@@ -200,11 +201,11 @@ export default function LandingPage() {
           {/* Centered Description */}
           <p style={{
             fontSize: '1.05rem',
-            color: '#B5C0D0',
+            color: 'var(--text-secondary)',
             lineHeight: 1.6,
             maxWidth: '680px'
           }}>
-            XELOVO combines advanced security tools, intelligent investigation features and AI-powered guidance to help you stay safe in the digital world.
+            XELOVO combines advanced security tools, intelligent investigation features, and verifiable forensic reports to help you stay safe in the digital world.
           </p>
         </div>
       </section>

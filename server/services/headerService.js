@@ -134,4 +134,7 @@ async function analyzeSecurityHeaders(inputUrl) {
   });
 }
 
-module.exports = { analyzeSecurityHeaders };
+module.exports = {
+  analyzeSecurityHeaders,
+  inspectHeaders: analyzeSecurityHeaders
+};

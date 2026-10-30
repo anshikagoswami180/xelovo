@@ -34,7 +34,6 @@ export default function DashboardPage({ user, onOpenCommand }) {
       {/* Header Banner */}
       <div className="glass-panel" style={{
         padding: '2rem',
-        backgroundColor: '#0F141C',
         border: '1px solid rgba(0, 240, 255, 0.25)',
         display: 'flex',
         alignItems: 'center',
@@ -123,7 +122,7 @@ export default function DashboardPage({ user, onOpenCommand }) {
       </div>
 
       {/* Recent Scans Table */}
-      <div className="glass-panel" style={{ padding: '1.5rem', backgroundColor: '#0F141C' }}>
+      <div className="glass-panel" style={{ padding: '1.5rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
           <h3 style={{ fontSize: '1.1rem', margin: 0 }}>Recent Security Investigations</h3>
           <Link to="/history" style={{ fontSize: '0.82rem', color: '#00F0FF', textDecoration: 'none' }}>View Full Log &rarr;</Link>

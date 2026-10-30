@@ -30,10 +30,10 @@ export default function PhishingAnalyzerPage() {
   };
 
   const loadSampleSuspicious = () => {
-    setUrl('http://192.168.1.1/login-verify-bank/auth');
-    setEmailSubject('URGENT: Your Account Has Been Suspended');
+    setUrl('https://example-phishing-test.com/login-verify-bank/auth');
+    setEmailSubject('[DEMONSTRATION DATA] URGENT: Your Account Has Been Suspended');
     setEmailSender('security-update@free-mail-provider.com');
-    setMessageContent('Dear Customer, your bank account is temporarily blocked due to unauthorized attempts. Please click the link immediately and enter your OTP verification code to restore access within 24 hours.');
+    setMessageContent('[DEMONSTRATION DATA] Dear Customer, your bank account is temporarily blocked due to unauthorized attempts. Please click the link immediately and enter your OTP verification code to restore access within 24 hours.');
   };
 
   return (

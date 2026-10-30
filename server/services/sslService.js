@@ -93,4 +93,7 @@ function inspectTLS(targetUrl) {
   });
 }
 
-module.exports = { inspectTLS };
+module.exports = {
+  inspectTLS,
+  inspectSSL: inspectTLS
+};
